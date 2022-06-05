@@ -4,15 +4,31 @@ import sys
 from tqdm import tqdm
 
 def decode():
+    print("Start Decoding...")
     os.system("fixipgyu.exe def.rld")
 
 def gyu_to_bmp():
-    os.system("for /r %i in (*.gyu) do gyu2bmp.exe %i")
+    print("Start transforming gyu to bmp...")
+    for files in tqdm(os.listdir("./")):
+        if os.path.isdir(files):
+            for file in os.listdir(files):
+                file=os.path.join(files,file)
+                ext=file.split(".")[-1]
+                if ext=='gyu':
+                    os.system("gyu2bmp.exe "+file)
 
 def delete_gyu():
-    os.system("for /r %i in (*.gyu) do del %i")
+    print("Start deleting original gyu...")
+    for files in tqdm(os.listdir("./")):
+        if os.path.isdir(files):
+            for file in os.listdir(files):
+                file=os.path.join(files,file)
+                ext=file.split(".")[-1]
+                if ext=='gyu':
+                    os.remove(file)
 
 def merge():
+    print("Start merging...")
     for files in tqdm(os.listdir("./")):
         if os.path.isdir(files):
             for file in os.listdir(files):
