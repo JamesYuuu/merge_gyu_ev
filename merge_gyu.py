@@ -75,7 +75,7 @@ if __name__=='__main__':
             delete_gyu()
     else:
         print("Usage: python merge_gyu.py [-d][-g][-m][-del]")
-        print("[-d]: denode key in def.rld")
+        print("[-d]: decode key in def.rld")
         print("[-g]: transform gyu to bmp")
         print("[-m]: merge bmp from location in gyu")
         print("[-del]: delete all gyu")
