@@ -12,27 +12,22 @@ def gyu_to_bmp():
 def delete_gyu():
     os.system("for /r %i in (*.gyu) do del %i")
 
-if '-d' in sys.argv:
-    decode()
-if '-g' in sys.argv:
-    gyu_to_bmp()
+def merge():
+    for files in tqdm(os.listdir("./")):
+        if os.path.isdir(files):
+            for file in os.listdir(files):
+                file=os.path.join(files,file)
 
-for files in tqdm(os.listdir("./")):
-    if os.path.isdir(files):
-        for file in os.listdir(files):
-            file=os.path.join(files,file)
-
-            ext=file.split(".")[-1]
-            file_name=file.split(".")[0]+".bmp"
-            if ext=="gyu":
-                with open(file,"rb") as gyu:
+                ext=file.split(".")[-1]
+                file_name=file.split(".")[0]+".bmp"
+                if ext=="gyu":
+                    gyu=open(file,"rb")
                     data=gyu.read()
-
+                    
                     x,y=struct.unpack("<2I",data[16:24]) #得到差分尺寸
-            
+
                     length=len(data)
                     num=length-1
-
                     while data[num]==0: #判断末尾有多少0
                         num=num-1
                     if length-num-1<=3: #此时不是差分
@@ -52,5 +47,19 @@ for files in tqdm(os.listdir("./")):
 
                     os.system("magick "+base_file+" -compose over "+file_name+" -geometry "+size+" -composite "+file_name)
 
-if '-del' in sys.argv:
-    delete_gyu()
+if __name__=='__main__':
+    if list(set(['-d','-g','-m','-del'])&set(sys.argv)):
+        if '-d' in sys.argv:
+            decode()
+        if '-g' in sys.argv:
+            gyu_to_bmp()
+        if '-m' in sys.argv:
+            merge()
+        if '-del' in sys.argv:
+            delete_gyu()
+    else:
+        print("Usage: python merge_gyu.py [-d][-g][-m][-del]")
+        print("[-d]: denode key in def.rld")
+        print("[-g]: transform gyu to bmp")
+        print("[-m]: merge bmp from location in gyu")
+        print("[-del]: delete all gyu")

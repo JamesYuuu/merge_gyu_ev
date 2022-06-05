@@ -17,9 +17,10 @@
 将仓库中的gyu2bmp.exe，fixipgyu.exe，merge_gyu.py以及游戏目录 /rld/def.rld 放到游戏目录/res/g/ev文件夹下。
 
 ```markdown
-usage: python merge_gyu.py [-d] [-g] [-del]
+usage: python merge_gyu.py [-d] [-g] [-m] [-del]
 -d: 获取gyu文件密钥,如果不添加这个参数可以正常解包则不用添加
 -g: 把gyu文件转化为bmp, 如果已经使用Garbro等办法自行提取，请把bmp和原gyu文件放在一个文件夹中
+-m: 根据gyu中的坐标合成差分CG
 -del: 转换完成后删除原gyu文件
 ```
 
