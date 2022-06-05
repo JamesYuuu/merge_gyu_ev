@@ -4,7 +4,7 @@ import sys
 from tqdm import tqdm
 
 def decode():
-    print("Start Decoding...")
+    print("Start decoding...")
     os.system("fixipgyu.exe def.rld")
 
 def gyu_to_bmp():
