@@ -52,11 +52,11 @@ def merge():
                     current_num=num
                     while data[current_num]!=0:
                         current_num=current_num-1 
-
-                    if  num+1-current_num>30: #此时不是差分
+                        
+                    try:
+                        location=data[current_num:num+1].decode(encoding="utf8").split(",") #得到覆盖坐标信息
+                    except Exceptions:   #此时不是差分
                         continue
-
-                    location=data[current_num:num+1].decode(encoding="utf8").split(",") #得到覆盖坐标信息
             
                     base_file=os.path.join(location[0][-4:-2],location[0][-4:]+".bmp")
                     size=str(x)+"x"+str(y)+"+"+location[1]+"+"+location[2]
